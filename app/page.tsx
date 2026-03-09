@@ -1,65 +1,171 @@
-import Image from "next/image";
+import Header from "@/components/Header";
 
-export default function Home() {
+const kpiCards = [
+  {
+    label: "総入金額",
+    value: "¥1,250,000",
+    sub: "累計入金",
+    color: "var(--accent)",
+  },
+  {
+    label: "現在価値",
+    value: "¥1,487,320",
+    sub: "評価額合計",
+    color: "var(--accent)",
+  },
+  {
+    label: "総損益",
+    value: "+¥237,320",
+    sub: "+18.99%",
+    color: "var(--green)",
+    positive: true,
+  },
+  {
+    label: "GMOコイン",
+    value: "¥623,450",
+    sub: "残高",
+    color: "var(--accent)",
+  },
+  {
+    label: "MetaMask",
+    value: "¥521,870",
+    sub: "残高",
+    color: "var(--accent)",
+  },
+  {
+    label: "Phantom",
+    value: "¥342,000",
+    sub: "残高",
+    color: "var(--accent)",
+  },
+];
+
+export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div
+      style={{
+        minHeight: "100dvh",
+        backgroundColor: "var(--bg)",
+      }}
+    >
+      <Header />
+
+      <main style={{ padding: "16px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "12px",
+          }}
+        >
+          {kpiCards.map((card) => (
+            <KpiCard key={card.label} {...card} />
+          ))}
+        </div>
+
+        <div
+          style={{
+            marginTop: "24px",
+            padding: "16px",
+            backgroundColor: "var(--surface)",
+            borderRadius: "var(--radius)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "9px",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "var(--text2)",
+              marginBottom: "8px",
+            }}
+          >
+            最終更新
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-jetbrains)",
+              fontSize: "13px",
+              color: "var(--text3)",
+            }}
+          >
+            2026-03-09 12:34:56
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
       </main>
+    </div>
+  );
+}
+
+function KpiCard({
+  label,
+  value,
+  sub,
+  color,
+  positive,
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  color: string;
+  positive?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        backgroundColor: "var(--surface)",
+        borderRadius: "var(--radius)",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Top color line */}
+      <div
+        style={{
+          height: "2px",
+          backgroundColor: color,
+          boxShadow: `0 0 8px ${color}`,
+        }}
+      />
+      <div style={{ padding: "14px 12px" }}>
+        <p
+          style={{
+            fontSize: "9px",
+            fontWeight: 700,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "var(--text2)",
+            marginBottom: "8px",
+          }}
+        >
+          {label}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-jetbrains)",
+            fontSize: "17px",
+            fontWeight: 700,
+            color: positive ? "var(--green)" : "var(--text)",
+            lineHeight: 1.2,
+            wordBreak: "break-all",
+          }}
+        >
+          {value}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-jetbrains)",
+            fontSize: "11px",
+            color: positive ? "var(--green)" : "var(--text3)",
+            marginTop: "4px",
+          }}
+        >
+          {sub}
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model DepositRecord {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  amount      Float
+  destination String
+  note        String?
+  createdAt   DateTime @default(now())
+}
+
+model AssetSnapshot {
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  totalValue Float
+  breakdown  Json
+  createdAt  DateTime @default(now())
+}
